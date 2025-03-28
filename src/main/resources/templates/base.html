@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html
+lang="en"
+th:fragment="parent(title, content)"
+xmlns:th="http://www.thymeleaf.org"
+class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" data-th-href="@{/css/output.css}" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title data-th-replace="${title}">Base Page</title>
+</head>
+<body>
+    <!-- common header -->
+     <div data-th-replace="~{navbar :: navbar}"></div>
+
+
+
+    <!-- main content -->
+    <section data-th-replace="${content}"></section>
+
+
+    <!-- common footer -->
+    <footer class = "p-4">
+        <p>Footer content</p>
+    </footer>
+
+    <!-- flowbite content -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <!-- to change the theme -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const themeToggle = document.getElementById("theme-toggle");
+            const themeIcon = document.getElementById("theme-icon");
+            const htmlElement = document.documentElement; // Selects <html>
+    
+            // Function to enable dark mode
+            function enableDarkMode() {
+                htmlElement.classList.add("dark");
+                localStorage.setItem("theme", "dark");
+                themeIcon.textContent = "🌞"; // Sun icon
+            }
+    
+            // Function to disable dark mode
+            function disableDarkMode() {
+                htmlElement.classList.remove("dark");
+                localStorage.setItem("theme", "light");
+                themeIcon.textContent = "🌙"; // Moon icon
+            }
+    
+            // Check saved theme in localStorage
+            if (localStorage.getItem("theme") === "dark") {
+                enableDarkMode();
+            } else {
+                disableDarkMode();
+            }
+    
+            // Add event listener for theme toggle button
+            if (themeToggle) {
+                themeToggle.addEventListener("click", () => {
+                    if (htmlElement.classList.contains("dark")) {
+                        disableDarkMode();
+                    } else {
+                        enableDarkMode();
+                    }
+                });
+            }
+        });
+    </script>
+    
+</body>
+</html>
