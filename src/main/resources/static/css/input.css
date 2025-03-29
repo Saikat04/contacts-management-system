@@ -1,2 +1,23 @@
-@import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default (Light Mode) */
+body {
+    background-color: white;
+    color: black;
+  }
+  
+  /* Dark Mode */
+  .dark body {
+    background-color: #111827;
+    color: white;
+  }
+  
+  .dark footer {
+    background-color: #111827;
+  }
+  
+  .dark section {
+    background-color: #111827;
+  }

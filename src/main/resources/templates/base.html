@@ -23,52 +23,13 @@ class="dark">
 
 
     <!-- common footer -->
-    <footer class = "p-4">
+    <!-- <footer class = "p-4">
         <p>Footer content</p>
-    </footer>
+    </footer> -->
 
     <!-- flowbite content -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-    <!-- to change the theme -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const themeToggle = document.getElementById("theme-toggle");
-            const themeIcon = document.getElementById("theme-icon");
-            const htmlElement = document.documentElement; // Selects <html>
-    
-            // Function to enable dark mode
-            function enableDarkMode() {
-                htmlElement.classList.add("dark");
-                localStorage.setItem("theme", "dark");
-                themeIcon.textContent = "🌞"; // Sun icon
-            }
-    
-            // Function to disable dark mode
-            function disableDarkMode() {
-                htmlElement.classList.remove("dark");
-                localStorage.setItem("theme", "light");
-                themeIcon.textContent = "🌙"; // Moon icon
-            }
-    
-            // Check saved theme in localStorage
-            if (localStorage.getItem("theme") === "dark") {
-                enableDarkMode();
-            } else {
-                disableDarkMode();
-            }
-    
-            // Add event listener for theme toggle button
-            if (themeToggle) {
-                themeToggle.addEventListener("click", () => {
-                    if (htmlElement.classList.contains("dark")) {
-                        disableDarkMode();
-                    } else {
-                        enableDarkMode();
-                    }
-                });
-            }
-        });
-    </script>
-    
+    <!-- for changin theme -->
+     <script data-th-src="@{'/js/script.js'}"></script>
 </body>
 </html>
