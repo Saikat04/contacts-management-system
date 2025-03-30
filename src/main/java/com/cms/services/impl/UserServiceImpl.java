@@ -1,4 +1,4 @@
-package com.cms.services;
+package com.cms.services.impl;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,16 +7,22 @@ import java.util.logging.Logger;
 
 import org.hibernate.validator.internal.util.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cms.entities.User;
+import com.cms.helpers.AppConstants;
 import com.cms.repositories.UserRepo;
+import com.cms.services.ResourceNotFoundException;
+import com.cms.services.UserService;
 
 @Service
 public class UserServiceImpl implements UserService{    
 
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     // private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -24,6 +30,9 @@ public class UserServiceImpl implements UserService{
     public User saveUser(User user) {
         String userId = UUID.randomUUID().toString();
         user.setUserId(userId);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
+        user.setEnabled(true);
         return userRepo.save(user);
     }
 

@@ -6,15 +6,32 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import com.cms.entities.User;
+import com.cms.forms.LoginForm;
 import com.cms.forms.UserForm;
+import com.cms.helpers.Message;
+import com.cms.helpers.MessageType;
 import com.cms.services.UserService;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
 
 @Controller
 public class PageController {
     @Autowired
     private UserService userService;
+
+    @RequestMapping("/")
+    public String index() {
+        return "redirect:/home";
+    }    
 
     @RequestMapping("/home")
     public void displayHomePage() {
@@ -37,13 +54,19 @@ public class PageController {
     }
 
     @RequestMapping("/login")
-    public void displayLoginPage() {
-        System.out.println("Displaying Login Page");
+    public String displayLoginPage(Model model) {
+        LoginForm loginForm = new LoginForm();
+        model.addAttribute("loginForm", loginForm);
+        return "login";
+    }
+
+    @PostMapping("/authenticate")
+    public String processAuthentication(@ModelAttribute LoginForm loginForm) {        
+        return "login";
     }
 
     @RequestMapping("/signup")
     public String displaySignupPage(Model model) {
-        System.out.println("Displaying Signup Page");
         UserForm userForm = new UserForm();
         model.addAttribute("userForm", userForm);
         return "signup";
@@ -51,17 +74,27 @@ public class PageController {
 
     // processing register
     @PostMapping("/register")
-    public String processRegister(@ModelAttribute UserForm userForm) {
+    public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult, HttpSession session) {
+        // validation
+        if(rBindingResult.hasErrors()) {
+            System.out.println("Error: " + rBindingResult);
+            return "signup";
+        }
         // fetch data
-        User user = User.builder()
-                .name(userForm.getName())
-                .email(userForm.getEmail())
-                .password(userForm.getPassword())
-                .about(userForm.getAbout())
-                .contactNumber(userForm.getContactNo())
-                .build();
+        User user = new User();
+        user.setName(userForm.getName());
+        user.setEmail(userForm.getEmail());
+        user.setPassword(userForm.getPassword());
+        user.setContactNumber(userForm.getContactNo());
+        user.setAbout(userForm.getAbout());
         User saveUser = userService.saveUser(user);
-        System.out.println("User registered successfully: " + user.toString());
+
+        // set message
+        Message message = new Message();        
+        message.setContent("Registration successfully!");
+        message.setType(MessageType.green);
+
+        session.setAttribute("message", message);
         return "redirect:/signup";
     }
 
