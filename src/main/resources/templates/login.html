@@ -36,6 +36,24 @@ th:replace="~{base :: parent(~{::title}, ~{::#content})}">
                                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Signin</button>
                             </div>
                     </form>
+
+                    <!-- <div class="social-buttons-container flex justify-center mt-6 login-with-google-btn">
+                        <a data-th-href="@{/oauth2/authorization/google}">Login with Google</a>
+                    </div> -->
+                    <div class="flex justify-center mt-4 gap-4">
+                        <a data-th-href="@{/oauth2/authorization/google}" 
+                        class="inline-flex items-center bg-white dark:bg-gray-900 border border-gray-300 rounded-lg shadow-md px-4 py-2 text-sm font-medium text-gray-800 dark:text-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">                 
+                            <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800px" height="800px" viewBox="-0.5 0 48 48" version="1.1"> <title>Google-color</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Color-" transform="translate(-401.000000, -860.000000)"> <g id="Google" transform="translate(401.000000, 860.000000)"> <path d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24" id="Fill-1" fill="#FBBC05"> </path> <path d="M23.7136364,10.1333333 C27.025,10.1333333 30.0159091,11.3066667 32.3659091,13.2266667 L39.2022727,6.4 C35.0363636,2.77333333 29.6954545,0.533333333 23.7136364,0.533333333 C14.4268636,0.533333333 6.44540909,5.84426667 2.62345455,13.6042667 L10.5322727,19.6437333 C12.3545909,14.112 17.5491591,10.1333333 23.7136364,10.1333333" id="Fill-2" fill="#EB4335"> </path> <path d="M23.7136364,37.8666667 C17.5491591,37.8666667 12.3545909,33.888 10.5322727,28.3562667 L2.62345455,34.3946667 C6.44540909,42.1557333 14.4268636,47.4666667 23.7136364,47.4666667 C29.4455,47.4666667 34.9177955,45.4314667 39.0249545,41.6181333 L31.5177727,35.8144 C29.3995682,37.1488 26.7323182,37.8666667 23.7136364,37.8666667" id="Fill-3" fill="#34A853"> </path> <path d="M46.1454545,24 C46.1454545,22.6133333 45.9318182,21.12 45.6113636,19.7333333 L23.7136364,19.7333333 L23.7136364,28.8 L36.3181818,28.8 C35.6879545,31.8912 33.9724545,34.2677333 31.5177727,35.8144 L39.0249545,41.6181333 C43.3393409,37.6138667 46.1454545,31.6490667 46.1454545,24" id="Fill-4" fill="#4285F4"> </path> </g> </g> </g> </svg>
+                            <span>Continue with Google</span>
+                        </a>
+                        <a data-th-href="@{/oauth2/authorization/github}" 
+                            class="inline-flex items-center bg-white dark:bg-gray-900 border border-gray-300 rounded-lg shadow-md px-4 py-2 text-sm font-medium text-gray-800 dark:text-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                            <svg class="h-6 w-6 mr-2" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0.296875C5.373 0.296875 0 5.66987 0 12.2969C0 17.7109 3.438 22.2069 8.207 23.7769C8.807 23.8869 9.025 23.5269 9.025 23.2069V21.0869C5.945 21.8069 5.207 19.6469 5.207 19.6469C4.682 18.2969 3.883 17.9269 3.883 17.9269C2.807 17.1469 3.965 17.1669 3.965 17.1669C5.151 17.2469 5.787 18.3669 5.787 18.3669C6.873 20.2269 8.693 19.7469 9.375 19.4269C9.475 18.6469 9.807 18.0869 10.177 17.7469C7.416 17.4069 4.527 16.3669 4.527 11.9269C4.527 10.6469 4.965 9.60687 5.677 8.79687C5.577 8.49687 5.207 7.35687 5.777 5.65687C5.777 5.65687 6.747 5.32687 9.025 7.09687C9.935 6.84687 10.935 6.72687 11.935 6.72687C12.935 6.72687 13.935 6.84687 14.845 7.09687C17.123 5.32687 18.093 5.65687 18.093 5.65687C18.663 7.35687 18.293 8.49687 18.193 8.79687C18.905 9.60687 19.343 10.6469 19.343 11.9269C19.343 16.3769 16.445 17.3969 13.675 17.7269C14.125 18.1169 14.525 18.8769 14.525 20.0269V23.2069C14.525 23.5269 14.743 23.8969 15.343 23.7769C20.112 22.1969 23.55 17.7109 23.55 12.2969C24 5.66987 18.627 0.296875 12 0.296875Z"/>
+                            </svg>
+                            <span>Continue with GitHub</span>
+                        </a>
+                    </div>                   
                 </div>
             </div>
         </div>

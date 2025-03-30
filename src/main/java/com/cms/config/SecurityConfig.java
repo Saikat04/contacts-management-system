@@ -33,6 +33,9 @@ public class SecurityConfig {
     @Autowired
     private SecurityCustomUserDetailService userDetailsService;
 
+    @Autowired
+    private OAuthAuthenticationSuccessHandler oauthAuthenticationSuccessHandler;
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -66,6 +69,15 @@ public class SecurityConfig {
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID");
         });
+
+        // httpSecurity.oauth2Login(Customizer.withDefaults()); // default oauth2 login
+        // oauth configuration
+        httpSecurity.oauth2Login(oauth2Login -> {
+            oauth2Login.loginPage("/login")
+                .failureUrl("/login?error=true")
+                .successHandler(oauthAuthenticationSuccessHandler);
+        });
+
         return httpSecurity.build();
     }
 
