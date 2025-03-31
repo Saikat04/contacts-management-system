@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -32,6 +33,7 @@ public class OAuthAuthenticationSuccessHandler implements AuthenticationSuccessH
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
+                
                 logger.info("OAuthAuthenticationSuccessHandler");
                 DefaultOAuth2User user = (DefaultOAuth2User) authentication.getPrincipal();
                 String email = user.getAttribute("email");
@@ -65,8 +67,8 @@ public class OAuthAuthenticationSuccessHandler implements AuthenticationSuccessH
                     existingUser.setProviderUserId(user.getName());
                     existingUser.setProvider(Provider.GOOGLE);
                     userRepo.save(existingUser);
+                    
                 }
-                
                 // Redirect to the desired URL after successful authentication
                 new DefaultRedirectStrategy().sendRedirect(request, response, "/user/dashboard");
     }
