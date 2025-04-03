@@ -13,4 +13,6 @@ public interface UserRepo extends JpaRepository<User, String> {
 
     //  custom query to find user by email  but we need to take care of function naming 
     Optional<User> findByEmail(String email);  
+
+    Optional<User> findByEmailAndPassword(String email, String password);
 }

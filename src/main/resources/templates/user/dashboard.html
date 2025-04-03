@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+th:replace="~{base :: parent(~{::title}, ~{::#content})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title data-th-text="${loggedInUser.name}+ ' | Dashboard'">Dashboard</title>
 </head>
 <body>
-    <h1>Dashboard</h1>
-    <a data-th-href="@{/logout}">Logout</a>
+    <div id="content">
+        <!-- <h1>Welcome to Dashboard</h1>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt velit est, ex consectetur optio minus ab cumque, accusamus odit deleniti harum repellendus reiciendis dolore dolor doloremque saepe numquam explicabo itaque.</p>
+        <a data-th-href="@{/logout}">Logout</a> -->
+    </div>
+    
 </body>
 </html>
