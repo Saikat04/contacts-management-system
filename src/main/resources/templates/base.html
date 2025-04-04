@@ -18,7 +18,7 @@ class="dark">
      <!-- If user is logged in run this nav bar -->
      <div data-th-if="${loggedInUser}">
         <div data-th-replace="~{user/userNavbar::user-navbar}"></div>
-     </div>
+     </div>     
      <!-- If user is not loggedin  -->
      <div th:unless="${loggedInUser}">
         <div data-th-replace="~{navbar :: navbar}"></div>

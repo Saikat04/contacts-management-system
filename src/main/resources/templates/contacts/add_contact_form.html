@@ -2,15 +2,15 @@
 <html lang="en"
 th:replace="~{base :: parent(~{::title}, ~{::#content})}">
 <head>
-    <title data-th-text="${loggedInUser.name}+ ' | Dashboard'">Dashboard</title>
+    <title>Add Contacts</title>
 </head>
 <body>
     <div id="content"
-    class="pl-10 pt-20 pr-10"
+    class="pl-6 pt-20 pr-6"
     style="height: 1000px">
-        <h1>Welcome to Dashboard</h1>
+        <h1>Welcome to Adding Contact</h1>
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt velit est, ex consectetur optio minus ab cumque, accusamus odit deleniti harum repellendus reiciendis dolore dolor doloremque saepe numquam explicabo itaque.</p>
-        <a data-th-href="@{/logout}">Logout</a>
+        <!-- <a data-th-href="@{/logout}">Logout</a> -->
     </div>
     
 </body>
