@@ -17,9 +17,6 @@ import com.cms.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -77,7 +74,10 @@ public class PageController {
     public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult, HttpSession session) {
         // validation
         if(rBindingResult.hasErrors()) {
-            System.out.println("Error: " + rBindingResult);
+            Message message = new Message();        
+            message.setContent("Please, correct the following errors...");
+            message.setType(MessageType.red);
+            session.setAttribute("message", message);
             return "signup";
         }
         // fetch data

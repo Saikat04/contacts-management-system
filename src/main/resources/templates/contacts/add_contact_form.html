@@ -8,10 +8,97 @@ th:replace="~{base :: parent(~{::title}, ~{::#content})}">
     <div id="content"
     class="pl-10 pt-20 pr-10"
     style="height: 1000px">
-        <h1>Welcome to Adding Contact</h1>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt velit est, ex consectetur optio minus ab cumque, accusamus odit deleniti harum repellendus reiciendis dolore dolor doloremque saepe numquam explicabo itaque.</p>
-        <!-- <a data-th-href="@{/logout}">Logout</a> -->
-    </div>
-    
+    <div class="grid grid-cols-12 mt-5">
+        <div class="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-4"></div>
+        <div class="col-span-10 md:col-span-8 lg:col-span-6 xl:col-span-4 ">
+            <div class="card block p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <div data-th-replace="~{message::messagebox}"></div>
+                <h1 class="text-2xl font-semibold">
+                    Add New Contacts
+                </h1>
+                <form 
+                data-th-action="@{'/user/contact/addNew'}"
+                data-th-object="${contactForm}"
+                method="post"
+                class="mt-8"
+                novalidate>
+                    <div class="mb-3">
+                        
+                            <div class="mb-6">
+                                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact's Name</label>
+                                <input 
+                                data-th-field="*{name}"
+                                type="text"class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Doe" required />
+                                <p 
+                                data-th-if="${#fields.hasErrors('name')}"
+                                data-th-errors="*{name}"
+                                class="mb-2 text-red-600 px-2 py-1"></p>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
+                                <input type="tel" data-th-field="*{phoneNumber}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1234567890" pattern="[0-9]{10}" required />
+                                <p 
+                                data-th-if="${#fields.hasErrors('phoneNumber')}"
+                                data-th-errors="*{phoneNumber}"
+                                class="mb-2 text-red-600 px-2 py-1"></p>
+                            </div>
+                            <div class="mb-6">
+                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
+                                <input type="email" data-th-field="*{email}"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@email.com" required />
+                                <p 
+                                data-th-if="${#fields.hasErrors('email')}"
+                                data-th-errors="*{email}"
+                                class="mb-2 text-red-600 px-2 py-1"></p>
+                            </div>
+                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                            <div>
+                                <label for="website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Website URL</label>
+                                <input type="url" data-th-field="*{wURL}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="flowbite.com"/>
+                            </div>
+                            <div>
+                                <label for="website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Social URL</label>
+                                <input type="url" data-th-field="*{sURL}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="facebook.com"/>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                            <input type="text" data-th-field="*{address}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Delhi, India"/>
+                        </div> 
+                        <div class="mb-6">
+                            <div class="mb-6">
+                                <label for="large-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                                <input type="text" data-th-field="*{description}" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                        </div> 
+                        <div class="mb-6">
+                            <label for="favorite" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Is this your's favorite one?</label>
+                            <select data-th-field="*{favorite}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <div class="flex items-center justify-center w-full">
+                                <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                        <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                        </svg>
+                                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload the photo</span> or drag and drop</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF</p>
+                                    </div>
+                                    <input id="dropzone-file" type="file" class="hidden" />
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save Contact</button>
+                    </div>
+                </form>
+
+            </div>            
+        </div>
+    </div>    
 </body>
 </html>
