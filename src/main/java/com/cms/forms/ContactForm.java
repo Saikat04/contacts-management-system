@@ -29,5 +29,5 @@ public class ContactForm {
     private String address;
     private String description;
     private boolean favorite;
-    private MultipartFile profileImage;
+    private MultipartFile contactPhoto;
 }

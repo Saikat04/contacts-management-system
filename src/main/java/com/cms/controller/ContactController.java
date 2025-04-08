@@ -1,5 +1,7 @@
 package com.cms.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import com.cms.helpers.GetEmail;
 import com.cms.helpers.Message;
 import com.cms.helpers.MessageType;
 import com.cms.services.ContactService;
+import com.cms.services.ImageService;
 import com.cms.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -26,6 +29,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequestMapping("/user/contact")
 public class ContactController {
+    @Autowired
+    private ImageService imageService;
     @Autowired
     private ContactService contactService;
     @Autowired
@@ -40,6 +45,17 @@ public class ContactController {
     @PostMapping("/addNew")
     public String saveContact(@Valid @ModelAttribute ContactForm contactForm, BindingResult bindingResult, Authentication authentication, HttpSession session) {
         if(bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(error -> {
+                System.out.println("Validation error: " + error.getDefaultMessage());
+            });
+    
+            // You can also access field-specific errors
+            bindingResult.getFieldErrors().forEach(error -> {
+                System.out.println("Field: " + error.getField());
+                System.out.println("Rejected value: " + error.getRejectedValue());
+                System.out.println("Message: " + error.getDefaultMessage());
+            });
+    
             Message message = new Message();        
             message.setContent("Please, correct the following errors...");
             message.setType(MessageType.red);
@@ -48,6 +64,11 @@ public class ContactController {
         }
         String userName = GetEmail.getLoggedUserEmail(authentication);
         User user = userService.getUserByEmail(userName);
+        // process image
+        String url = "https://res.cloudinary.com/dyo7nfx15/image/upload/v1744133647/contactsdefaultimage_p9rj2a.png";
+        if(contactForm.getContactPhoto() != null && !contactForm.getContactPhoto().isEmpty()) {
+            url = imageService.uploadImage(contactForm.getContactPhoto());
+        }
         
         Contact contact = new Contact();
         contact.setName(contactForm.getName());
@@ -58,6 +79,7 @@ public class ContactController {
         contact.setAddress(contactForm.getAddress());
         contact.setDescription(contactForm.getDescription());
         contact.setFavorite(contactForm.isFavorite());
+        contact.setPicture(url);
         contact.setUser(user);
         contactService.save(contact);
         System.out.println("User saved successfully");
@@ -68,5 +90,13 @@ public class ContactController {
         return "redirect:/user/contact/add";
     }
     
+    @RequestMapping("/allContacts")
+    public String showAllContacts(Model model, Authentication authentication) {
+        String userName = GetEmail.getLoggedUserEmail(authentication);
+        User user = userService.getUserByEmail(userName);
+        List<Contact> contacts = contactService.getByUser(user);
+        model.addAttribute("contacts", contacts);
+        return "contacts/allContacts";
+    }
 
 }

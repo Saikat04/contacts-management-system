@@ -3,6 +3,7 @@ package com.cms.services;
 import java.util.List;
 
 import com.cms.entities.Contact;
+import com.cms.entities.User;
 
 public interface ContactService {
     Contact save(Contact contact);
@@ -12,4 +13,5 @@ public interface ContactService {
     void delete(String id);
     List<Contact> serch(String name, String email, String phoneNumber);
     // List<Contact> getByUserId(String userId);
+    List<Contact> getByUser(User user);
 }

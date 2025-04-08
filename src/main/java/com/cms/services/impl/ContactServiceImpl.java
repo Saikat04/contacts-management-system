@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cms.entities.Contact;
+import com.cms.entities.User;
 import com.cms.repositories.ContactRepo;
 import com.cms.services.ContactService;
 import com.cms.services.ResourceNotFoundException;
@@ -52,6 +53,11 @@ public class ContactServiceImpl implements ContactService{
     public List<Contact> serch(String name, String email, String phoneNumber) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'serch'");
+    }
+
+    @Override
+    public List<Contact> getByUser(User user) {
+        return contactRepo.findByUser(user);
     }
 
     // @Override
