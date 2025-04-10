@@ -128,7 +128,7 @@ public class ContactController {
     @PostMapping("/delete-contact")
     public String deleteContact(@RequestParam("contactId") String contactId) {
         contactService.delete(contactId);
-        return "contacts/allContacts";
+        return "redirect:/user/contact/allContacts";
     }    
     
 
