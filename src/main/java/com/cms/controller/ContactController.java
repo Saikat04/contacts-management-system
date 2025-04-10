@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -121,6 +123,13 @@ public class ContactController {
 
             return "contacts/searchContact";
     }
+
+    // Delete Contacts
+    @PostMapping("/delete-contact")
+    public String deleteContact(@RequestParam("contactId") String contactId) {
+        contactService.delete(contactId);
+        return "contacts/allContacts";
+    }    
     
 
 }
