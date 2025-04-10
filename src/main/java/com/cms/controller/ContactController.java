@@ -24,6 +24,9 @@ import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -98,5 +101,26 @@ public class ContactController {
         model.addAttribute("contacts", contacts);
         return "contacts/allContacts";
     }
+
+    @RequestMapping("/search")
+    public String searchHandler(
+        @RequestParam("field") String field,
+        @RequestParam("keyword") String value, Model model,
+        Authentication authentication) {
+            var user=userService.getUserByEmail(GetEmail.getLoggedUserEmail(authentication));
+            
+            List<Contact> matchedContacts = null;
+            if(field.equalsIgnoreCase("name")) {
+                matchedContacts = contactService.serchByName(value, user);
+            } else if(field.equalsIgnoreCase("email")) {
+                matchedContacts = contactService.serchByEmail(value, user);
+            } else if(field.equalsIgnoreCase("number")){
+                matchedContacts = contactService.serchByPhoneNumber(value, user);
+            }
+            model.addAttribute("matchedContact", matchedContacts);
+
+            return "contacts/searchContact";
+    }
+    
 
 }

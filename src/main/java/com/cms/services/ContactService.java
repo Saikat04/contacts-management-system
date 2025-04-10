@@ -11,7 +11,9 @@ public interface ContactService {
     List<Contact> getAll();
     Contact getById(String id);
     void delete(String id);
-    List<Contact> serch(String name, String email, String phoneNumber);
+    List<Contact> serchByName(String name, User user);
+    List<Contact> serchByEmail(String email, User user);
+    List<Contact> serchByPhoneNumber(String phoneNumber, User user);
     // List<Contact> getByUserId(String userId);
     List<Contact> getByUser(User user);
 }

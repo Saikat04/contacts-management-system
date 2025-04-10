@@ -50,14 +50,23 @@ public class ContactServiceImpl implements ContactService{
     }
 
     @Override
-    public List<Contact> serch(String name, String email, String phoneNumber) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'serch'");
+    public List<Contact> getByUser(User user) {
+        return contactRepo.findByUser(user);
     }
 
     @Override
-    public List<Contact> getByUser(User user) {
-        return contactRepo.findByUser(user);
+    public List<Contact> serchByName(String name, User user) {
+        return contactRepo.findByNameContainingAndUser(name, user);
+    }
+
+    @Override
+    public List<Contact> serchByEmail(String email, User user) {
+        return contactRepo.findByEmailContainingAndUser(email, user);
+    }
+
+    @Override
+    public List<Contact> serchByPhoneNumber(String phoneNumber, User user) {
+        return contactRepo.findByPhoneNumberContainingAndUser(phoneNumber, user);
     }
 
     // @Override
